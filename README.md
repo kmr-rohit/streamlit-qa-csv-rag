@@ -92,7 +92,7 @@ The current setup uses DeepSeek-R1's `deepseek-r1:14b` served via Ollama. Change
 
 ### 1. Vector Database:
 - ChromaDB stores the embeddings of the CSV data.
-- SentenceTransformer (all-MiniLM-L6-v2) is used to create embeddings for the textual data in the CSV.
+- SentenceTransformer (`all-MiniLM-L6-v2`) is used to create embeddings for the textual data in the CSV.
 
 ### 2. Retrieval-Augmented Generation (RAG):
 - The app uses the RAG approach to combine the information retrieval from the vector database with generative language models to answer user queries.
