@@ -65,6 +65,9 @@ The data will be indexed into the Chroma vector store, and you’ll see a previe
 - Each user query and AI response is displayed as a message bubble.
 - The interface supports continuous conversation, keeping track of the chat history.
 
+![demo](https://github.com/vishukla/streamlit-qa-csv-rag/st-rag-qa.gif)
+
+
 ## Configuration
 
 ### Embedding Model
