@@ -15,9 +15,9 @@ This application is a Streamlit-based interactive Q&A system that uses Retrieval
 To run the project locally, follow these steps:
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.10+
 - Streamlit
-- langchain
+- LangChain
 - Ollama
 - DeepSeek-R1 (served via Ollama)
 - ChromaDB
