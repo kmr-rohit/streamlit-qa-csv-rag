@@ -48,11 +48,15 @@ This will launch a local Streamlit server, and the app will be accessible in you
 
 ## How to use
 
-### Step 1: Upload a CSV
-- Navigate to the "Upload CSV to Vector DB" tab.
-- Use the file uploader to upload a CSV file. The app will process the file and store its content in a vector database.
+### Upload CSV
+- Upload a CSV file containing the tweets by clicking the Upload CSV to Vector DB tab.
+- The CSV file should have the following columns:
+  - `body`: The textual content to be indexed.
+  - `id`: A unique identifier for each row (e.g., tweet ID, document ID).
+  - `hashtags`, `author`, `mentions`: Metadata associated with each row.
+The data will be indexed into the Chroma vector store, and you’ll see a preview of the CSV data.
 
-### Step 2: Ask Questions
+### Step 2: Interactive Q&A
 - Go to the "Question Answering" tab to ask questions related to the data you uploaded.
 - The app uses a Retrieval-Augmented Generation (RAG) approach to find the most relevant information in the CSV and generate an AI-powered answer.
 
@@ -60,6 +64,26 @@ This will launch a local Streamlit server, and the app will be accessible in you
 - Once the CSV is uploaded and the database is created, the user can engage with an interactive chat interface where they can type queries.
 - Each user query and AI response is displayed as a message bubble.
 - The interface supports continuous conversation, keeping track of the chat history.
+
+## Configuration
+
+### Embedding Model
+This app uses the `all-MiniLM-L6-v2` model from `Sentence-Transformers` to create embeddings. You can change the embedding model by modifying the `EMBEDDING_MODEL` variable in the `app.py` script.
+  ```bash
+  EMBEDDING_MODEL = "all-MiniLM-L6-v2"  # Change to another model if desired
+  ```
+
+### Persistent Directory
+The vector store is persisted in the `./chroma_db` directory. You can change this directory by modifying the `PERSIST_DIRECTORY` variable in the script.
+  ```bash
+  PERSIST_DIRECTORY = "./chroma_db"  # Modify path if desired
+  ```
+
+### Language Model
+The current setup uses DeepSeek-R1's `deepseek-r1:14b` served via Ollama. Change this by updating `LLM_MODEL` variable in the script.
+  ```bash
+  LLM_MODEL = "deepseek-r1:14b"  # Update as needed
+  ```
 
 ## Architecture
 
@@ -73,3 +97,8 @@ This will launch a local Streamlit server, and the app will be accessible in you
 
 ### 3. Chat Interface:
 - The user interacts with the application through a chat interface in Streamlit, which updates dynamically as the conversation progresses.
+
+## Troubleshooting
+1. Issue with CSV Format: Ensure your CSV contains the correct columns (e.g., `body`, `id`, `hashtags`, `author`, `mentions`).
+2. Model Errors: If you’re using an external language model such OpenAPI, ensure your API keys and environment variables are correctly set and LangChain model initialization in the script. Alternatively if using other models served by Ollama, make sure to update `LLM_MODEL` variable in the script.
+3. Chroma Errors: If you encounter issues with Chroma, ensure the persistent directory is accessible, and try clearing the `./chroma_db` folder.
