@@ -93,7 +93,7 @@ The current setup uses DeepSeek-R1's `deepseek-r1:14b` served via Ollama. Change
 
 ### 2. Retrieval-Augmented Generation (RAG):
 - The app uses the RAG approach to combine the information retrieval from the vector database with generative language models to answer user queries.
-- OpenAI's GPT model (or Ollama for specific use cases) is used for generating answers based on retrieved context.
+- DeepSeek-R1 model (served via Ollama for specific use case) is used for generating answers based on retrieved context.
 
 ### 3. Chat Interface:
 - The user interacts with the application through a chat interface in Streamlit, which updates dynamically as the conversation progresses.
