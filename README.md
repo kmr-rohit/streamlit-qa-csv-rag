@@ -1,5 +1,7 @@
 # Streamlit Q&A on CSV using Retrieval Augmented Generation (RAG)
 
+![demo](./st-rag-qa.png)
+
 ## Description
 This application is a Streamlit-based interactive Q&A system that uses Retrieval Augmented Generation (RAG) to answer questions based on the contents of a CSV file uploaded by the user. The uploaded CSV file is indexed into a Chroma vector database, where the content is embedded using the `SentenceTransformers` model for efficient and scalable retrieval. Once the data is indexed, users can interact with the system by querying the dataset and receive responses powered by a language model.
 
@@ -64,8 +66,6 @@ The data will be indexed into the Chroma vector store, and you’ll see a previe
 - Once the CSV is uploaded and the database is created, the user can engage with an interactive chat interface where they can type queries.
 - Each user query and AI response is displayed as a message bubble.
 - The interface supports continuous conversation, keeping track of the chat history.
-
-![demo](./st-rag-qa.png)
 
 
 ## Configuration
