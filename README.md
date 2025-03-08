@@ -30,19 +30,20 @@ To run the project locally, follow these steps:
    ```
 
 2. Create a virtual environment and activate it:
-  ```bash
-  python -m venv venv
-  source venv/bin/activate  # On Windows use: venv\Scripts\activate
-  ```
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   ```
 3. Install the required dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 ### Run the application
 Once the environment is set up, you can run the Streamlit app:
-```bash
-streamlit run app.py
-```
+ ```bash
+ streamlit run app.py
+ ```
 This will launch a local Streamlit server, and the app will be accessible in your web browser at `http://localhost:8501`.
 
 ## How to use
