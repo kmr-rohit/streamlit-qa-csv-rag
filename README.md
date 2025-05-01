@@ -1,6 +1,6 @@
 # Streamlit Q&A on CSV using Retrieval Augmented Generation (RAG)
 
-![demo](./st-rag-qa.png)
+![demo](./assets/st-rag-qa.png)
 
 ## Description
 This application is a Streamlit-based interactive Q&A system that uses Retrieval Augmented Generation (RAG) to answer questions based on the contents of a CSV file uploaded by the user. The uploaded CSV file is indexed into a Chroma vector database, where the content is embedded using the `SentenceTransformers` model for efficient and scalable retrieval. Once the data is indexed, users can interact with the system by querying the dataset and receive responses powered by a language model.
@@ -89,6 +89,8 @@ The current setup uses DeepSeek-R1's `deepseek-r1:14b` served via Ollama. Change
   ```
 
 ## Architecture
+
+![arch](./assets/solution-architecture.png)
 
 ### 1. Vector Database:
 - ChromaDB stores the embeddings of the CSV data.
