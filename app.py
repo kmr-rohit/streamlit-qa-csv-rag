@@ -9,6 +9,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain.chains import LLMChain, RetrievalQA
 from sentence_transformers import SentenceTransformer
 from langchain.chains.combine_documents.stuff import create_stuff_documents_chain
+import os
+import shutil
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -42,12 +44,41 @@ class SentenceTransformerEmbedding:
         """
         return self.model.encode(query, convert_to_tensor=True).tolist()
 
+def clear_chroma_database():
+    """
+    Clear the ChromaDB database directory to resolve tenant issues.
+    """
+    try:
+        if os.path.exists(PERSIST_DIRECTORY):
+            shutil.rmtree(PERSIST_DIRECTORY)
+            st.success("✅ ChromaDB database cleared successfully!")
+        else:
+            st.info("ℹ️ No existing database found to clear.")
+    except Exception as e:
+        st.error(f"❌ Error clearing database: {str(e)}")
+
 def initialize_chroma_client() -> chromadb.Client:
     """
-    Initializes the Chroma client with persistent storage directory and tenant name.
+    Initializes the Chroma client with persistent storage directory.
     """
-    client = chromadb.Client(Settings(persist_directory=PERSIST_DIRECTORY))
-    return client
+    try:
+        # Try to create client with default settings first
+        client = chromadb.Client(Settings(persist_directory=PERSIST_DIRECTORY))
+        return client
+    except Exception as e:
+        st.warning(f"⚠️ ChromaDB connection issue: {str(e)}")
+        try:
+            # Fallback: try with explicit tenant settings
+            client = chromadb.Client(Settings(
+                persist_directory=PERSIST_DIRECTORY,
+                anonymized_telemetry=False
+            ))
+            return client
+        except Exception as e2:
+            st.error(f"❌ Failed to initialize ChromaDB: {str(e2)}")
+            # Create a new client without persistence as last resort
+            client = chromadb.Client()
+            return client
 
 def detect_text_column(df):
     """
@@ -408,6 +439,17 @@ with st.sidebar:
         """)
     
     st.info(f"🧠 Embedding: {EMBEDDING_MODEL}")
+    
+    st.markdown("---")
+    st.markdown("**🔧 Database Management:**")
+    if st.button("🗑️ Clear Database", help="Clear the vector database to resolve connection issues"):
+        clear_chroma_database()
+        # Clear session state
+        if 'vector_store' in st.session_state:
+            del st.session_state.vector_store
+        if 'df' in st.session_state:
+            del st.session_state.df
+        st.rerun()
     
     st.markdown("---")
     st.markdown("**📋 How it works:**")
